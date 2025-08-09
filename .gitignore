@@ -1,0 +1,9 @@
+processed/
+uploads/
+docling_cache/
+venv/
+dist/
+build/
+__pycache__
+
+
