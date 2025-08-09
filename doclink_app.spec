@@ -6,18 +6,30 @@ a = Analysis(
     ['app.py'],
     pathex=[],
     binaries=[],
-    datas=[],
-    hiddenimports=[
-        'flask',
-        'flask_cors',
-        'docling',
-        'docling.document_converter',
-        'werkzeug',
-        'transformers',
-        'easyocr',
-        'scikit-image',
-        'tokenizers'
-    ],
+    datas=(
+        __import__('PyInstaller.utils.hooks', fromlist=['collect_data_files']).collect_data_files('docling', include_py_files=False)
+        + __import__('PyInstaller.utils.hooks', fromlist=['collect_data_files']).collect_data_files('docling_parse', include_py_files=False)
+        # Include distribution metadata so entry-points work in frozen app
+        + __import__('PyInstaller.utils.hooks', fromlist=['copy_metadata']).copy_metadata('docling')
+        + __import__('PyInstaller.utils.hooks', fromlist=['copy_metadata']).copy_metadata('docling-parse')
+        + __import__('PyInstaller.utils.hooks', fromlist=['copy_metadata']).copy_metadata('easyocr')
+    ),
+    hiddenimports=(
+        [
+            'flask',
+            'flask_cors',
+            'docling',
+            'docling.document_converter',
+            'werkzeug',
+            'transformers',
+            'easyocr',
+            'scikit-image',
+            'tokenizers',
+        ]
+        + __import__('PyInstaller.utils.hooks', fromlist=['collect_submodules']).collect_submodules('docling')
+        + __import__('PyInstaller.utils.hooks', fromlist=['collect_submodules']).collect_submodules('docling_parse')
+        + __import__('PyInstaller.utils.hooks', fromlist=['collect_submodules']).collect_submodules('easyocr')
+    ),
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
