@@ -6,6 +6,7 @@ import sys
 import uuid
 from werkzeug.utils import secure_filename
 from pathlib import Path
+import easyocr
 
 app = Flask(__name__)
 CORS(app)
@@ -75,6 +76,7 @@ def upload_file():
             })
             
         except Exception as e:
+            print(f"Error processing file: {str(e)}")
             return jsonify({'error': f'Processing failed: {str(e)}'}), 500
     
     return jsonify({'error': 'Invalid file type. Only PDF files are allowed.'}), 400
@@ -94,6 +96,7 @@ def list_files():
                 })
         return jsonify({'files': files})
     except Exception as e:
+        print(f"Error listing files: {str(e)}")
         return jsonify({'error': f'Failed to list files: {str(e)}'}), 500
 
 @app.route('/download/<file_id>', methods=['GET'])
@@ -112,6 +115,7 @@ def download_file(file_id):
         return jsonify({'error': 'File not found'}), 404
     
     except Exception as e:
+        print(f"Error downloading file: {str(e)}")
         return jsonify({'error': f'Download failed: {str(e)}'}), 500
 
 if __name__ == '__main__':
