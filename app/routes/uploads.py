@@ -36,9 +36,9 @@ def upload_file():
 
         print('Converting to markdown...')
         markdown = convert_to_markdown(source_path)
-        
+
         print('Writing processed file...')
-        processed = write_processed(markdown, meta, base_name=custom_name)
+        processed = write_processed(markdown, meta, base_name=custom_name, page_range=f'{start}-{end}' if start and end else None)
 
         if subset_path and os.path.exists(subset_path):
             os.remove(subset_path)

@@ -1,7 +1,0 @@
-flask==3.0.0
-flask-cors==4.0.0
-docling==2.43.0
-deepsearch-toolkit==2.0.1
-werkzeug==3.0.1
-pyinstaller
-PyPDF2>=3.0.0

@@ -18,11 +18,11 @@ def save_upload(file_storage):
 
     return {'path': save_path, 'uuid': uid, 'date': date, 'original': original}
 
-def write_processed(markdown_content: str, meta: dict, base_name: str | None = None):
+def write_processed(markdown_content: str, meta: dict, base_name: str | None = None, page_range: str | None = None):
     base_original = base_name if base_name else meta['original'].rsplit('.', 1)[0]
     base_original = secure_filename(base_original)
 
-    filename = f"{base_original}_{meta['date']}.md"
+    filename = f"{base_original}_{meta['date']}{f'_{page_range}' if page_range else ''}.md"
 
     path = os.path.join(PROCESSED_DIR, filename)
 
